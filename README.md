@@ -1,11 +1,10 @@
-# Development on this repository has been frozen.   
+# Status of this fork
 
-Feel free to send a pull request if you are maintaining an active fork of this project to add a link to your repository in this readme.
+This is a fork of https://github.com/andreimarcu/linx-server with the following changes:
 
-
-### Active Forks
-- ZizzyDizzyMC: [https://github.com/ZizzyDizzyMC/linx-server/](https://github.com/ZizzyDizzyMC/linx-server/)
-
+* Updated to Go 1.17
+* Replaced go.rice with go:embed (templates + static files are now embedded in the binary)
+* Updated dependencies
 
 ---
 
