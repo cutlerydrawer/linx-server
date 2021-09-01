@@ -1,10 +1,8 @@
 # Status of this fork
 
-This is a fork of https://github.com/andreimarcu/linx-server with the following changes:
-
-* Updated to Go 1.17
-* Replaced go.rice with go:embed (templates + static files are now embedded in the binary)
-* Updated dependencies
+This is a fork of https://github.com/andreimarcu/linx-server with a handful of changes.
+See the CHANGELOG.md for a full list of what has changed in each version since it was
+forked.
 
 ---
 
