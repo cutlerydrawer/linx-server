@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -79,8 +80,8 @@ func staticHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 			path = Config.sitePath + "/static/images/favicon.gif"
 		}
 
-		filePath := strings.TrimPrefix(path, Config.sitePath+"static/")
-		file, err := staticBox.Open(filePath)
+		filePath := strings.TrimPrefix(path, Config.sitePath)
+		file, err := staticFS.ReadFile(filePath)
 		if err != nil {
 			notFoundHandler(c, w, r)
 			return
@@ -88,7 +89,7 @@ func staticHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Etag", fmt.Sprintf("\"%s\"", timeStartedStr))
 		w.Header().Set("Cache-Control", "public, max-age=86400")
-		http.ServeContent(w, r, filePath, timeStarted, file)
+		http.ServeContent(w, r, filePath, timeStarted, bytes.NewReader(file))
 		return
 	}
 }

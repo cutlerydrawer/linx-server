@@ -3,7 +3,6 @@ module github.com/andreimarcu/linx-server
 go 1.17
 
 require (
-	github.com/GeertJohan/go.rice v1.0.2
 	github.com/aws/aws-sdk-go v1.40.35
 	github.com/dchest/uniuri v0.0.0-20200228104902-7aecb25e1fe5
 	github.com/dustin/go-humanize v1.0.0
@@ -20,10 +19,8 @@ require (
 
 require (
 	github.com/aymerick/douceur v0.2.0 // indirect
-	github.com/daaku/go.zipexe v1.0.1 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
-	github.com/juju/errors v0.0.0-20210818161939-5560c4c073ff // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
 )

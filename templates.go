@@ -2,34 +2,28 @@ package main
 
 import (
 	"bytes"
+	"embed"
 	"io"
 	"net/http"
 	"path"
 	"path/filepath"
 	"strings"
 
-	rice "github.com/GeertJohan/go.rice"
 	"github.com/flosch/pongo2"
 )
 
-type Pongo2Loader struct {
-	box *rice.Box
-}
+//go:embed templates
+var templateFS embed.FS
+
+type Pongo2Loader struct {}
 
 func NewPongo2TemplatesLoader() (*Pongo2Loader, error) {
 	fs := &Pongo2Loader{}
-
-	p2l, err := rice.FindBox("templates")
-	if err != nil {
-		return nil, err
-	}
-
-	fs.box = p2l
 	return fs, nil
 }
 
 func (fs *Pongo2Loader) Get(path string) (io.Reader, error) {
-	myBytes, err := fs.box.Bytes(path)
+	myBytes, err := templateFS.ReadFile(filepath.Join("templates", path))
 	if err != nil {
 		return nil, err
 	}
