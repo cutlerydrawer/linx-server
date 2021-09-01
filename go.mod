@@ -1,6 +1,6 @@
 module github.com/andreimarcu/linx-server
 
-go 1.14
+go 1.17
 
 require (
 	github.com/GeertJohan/go.rice v1.0.0
@@ -16,4 +16,11 @@ require (
 	github.com/zeebo/bencode v1.0.0
 	github.com/zenazn/goji v0.9.0
 	golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073
+)
+
+require (
+	github.com/daaku/go.zipexe v1.0.0 // indirect
+	github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af // indirect
+	github.com/juju/errors v0.0.0-20181118221551-089d3ea4e4d5 // indirect
+	golang.org/x/net v0.0.0-20200202094626-16171245cfb2 // indirect
 )
