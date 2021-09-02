@@ -1,3 +1,7 @@
+# vNext
+
+* Remove support for S3 backends
+
 # v2.3.9
 
 * Static files and templates are now embedded in the linx-server binary.
