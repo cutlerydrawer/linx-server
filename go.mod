@@ -3,7 +3,7 @@ module github.com/andreimarcu/linx-server
 go 1.17
 
 require (
-	github.com/aws/aws-sdk-go v1.40.35
+	github.com/aws/aws-sdk-go v1.40.36
 	github.com/dchest/uniuri v0.0.0-20200228104902-7aecb25e1fe5
 	github.com/dustin/go-humanize v1.0.0
 	github.com/flosch/pongo2 v0.0.0-20200913210552-0d938eb266f3
