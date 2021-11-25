@@ -8,7 +8,7 @@ RUN set -ex \
         && go get -v . \
         && apk del .build-deps
 
-FROM alpine:3.14.2
+FROM alpine:3.15.0
 
 COPY --from=build /go/bin/linx-server /usr/local/bin/linx-server
 
