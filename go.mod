@@ -7,7 +7,7 @@ require (
 	github.com/dustin/go-humanize v1.0.0
 	github.com/flosch/pongo2 v0.0.0-20200913210552-0d938eb266f3
 	github.com/gabriel-vasile/mimetype v1.4.0
-	github.com/microcosm-cc/bluemonday v1.0.16
+	github.com/microcosm-cc/bluemonday v1.0.17
 	github.com/minio/sha256-simd v1.0.0
 	github.com/russross/blackfriday v1.6.0
 	github.com/vharitonsky/iniflags v0.0.0-20180513140207-a33cd0b5f3de
