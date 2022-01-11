@@ -9,7 +9,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.0
 	github.com/microcosm-cc/bluemonday v1.0.17
 	github.com/minio/sha256-simd v1.0.0
-	github.com/russross/blackfriday v1.6.0
+	github.com/russross/blackfriday v2.0.0+incompatible
 	github.com/vharitonsky/iniflags v0.0.0-20180513140207-a33cd0b5f3de
 	github.com/zeebo/bencode v1.0.0
 	github.com/zenazn/goji v1.0.1
@@ -20,5 +20,6 @@ require (
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
+	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
 )
