@@ -738,7 +738,7 @@ func TestPutUpload(t *testing.T) {
 
 	mux.ServeHTTP(w, req)
 
-	if w.Body.String() != fmt.Sprintf("%s\n", Config.siteURL+filename) {
+	if w.Body.String() != fmt.Sprintf("%s\n", Config.siteURL+Config.selifPath+filename) {
 		t.Fatal("Response was not expected URL")
 	}
 }
