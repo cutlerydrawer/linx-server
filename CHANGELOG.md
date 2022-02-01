@@ -1,6 +1,7 @@
 # vNext
 
 * Remove support for S3 backends
+* Update to Blackfriday v2
 
 # v2.3.9
 

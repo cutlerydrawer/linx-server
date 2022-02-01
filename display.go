@@ -14,7 +14,7 @@ import (
 	"github.com/dustin/go-humanize"
 	"github.com/flosch/pongo2"
 	"github.com/microcosm-cc/bluemonday"
-	"github.com/russross/blackfriday"
+	"github.com/russross/blackfriday/v2"
 	"github.com/zenazn/goji/web"
 )
 
@@ -82,7 +82,7 @@ func fileDisplayHandler(c web.C, w http.ResponseWriter, r *http.Request, fileNam
 		if metadata.Size < maxDisplayFileSizeBytes {
 			bytes, err := ioutil.ReadAll(reader)
 			if err == nil {
-				unsafe := blackfriday.MarkdownCommon(bytes)
+				unsafe := blackfriday.Run(bytes)
 				html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 
 				extra["contents"] = string(html)

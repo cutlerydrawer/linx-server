@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/microcosm-cc/bluemonday"
-	"github.com/russross/blackfriday"
+	"github.com/russross/blackfriday/v2"
 )
 
 func initializeCustomPages(customPagesDir string) {
@@ -23,13 +23,13 @@ func initializeCustomPages(customPagesDir string) {
 			continue
 		}
 
-		if strings.EqualFold(string(fileName[len(fileName)-3:len(fileName)]), ".md") {
+		if strings.EqualFold(fileName[len(fileName)-3:], ".md") {
 			contents, err := ioutil.ReadFile(path.Join(customPagesDir, fileName))
 			if err != nil {
 				log.Fatalf("Error reading file %s", fileName)
 			}
 
-			unsafe := blackfriday.MarkdownCommon(contents)
+			unsafe := blackfriday.Run(contents)
 			html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
 
 			fileName := fileName[0 : len(fileName)-3]
