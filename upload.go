@@ -154,7 +154,7 @@ func uploadPutHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		fmt.Fprintf(w, "%s\n", getSiteURL(r)+upload.Filename)
+		fmt.Fprintf(w, "%s\n", getSiteURL(r)+Config.selifPath+upload.Filename)
 	}
 }
 

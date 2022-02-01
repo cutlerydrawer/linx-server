@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"golang.org/x/crypto/scrypt"
 
@@ -116,6 +117,11 @@ func (a ApiKeysMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	key := r.Header.Get("Linx-Api-Key")
+	if key == "" {
+		if auth := r.Header.Get("Authorization"); strings.HasPrefix(auth, "Bearer ") {
+			key = auth[len("Bearer "):]
+		}
+	}
 	if key == "" && a.o.BasicAuth {
 		_, password, ok := r.BasicAuth()
 		if ok {
