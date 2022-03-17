@@ -3,10 +3,7 @@ FROM golang:1.18.0-alpine AS build
 COPY . /go/src/github.com/andreimarcu/linx-server
 WORKDIR /go/src/github.com/andreimarcu/linx-server
 
-RUN set -ex \
-        && apk add --no-cache --virtual .build-deps git \
-        && go get -v . \
-        && apk del .build-deps
+RUN CGO_ENABLED=0 go install -buildvcs=false .
 
 FROM alpine:3.15.1
 
