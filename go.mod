@@ -6,7 +6,7 @@ require (
 	github.com/dchest/uniuri v0.0.0-20200228104902-7aecb25e1fe5
 	github.com/dustin/go-humanize v1.0.0
 	github.com/flosch/pongo2 v0.0.0-20200913210552-0d938eb266f3
-	github.com/gabriel-vasile/mimetype v1.4.0
+	github.com/gabriel-vasile/mimetype v1.4.1
 	github.com/microcosm-cc/bluemonday v1.0.18
 	github.com/minio/sha256-simd v1.0.0
 	github.com/russross/blackfriday/v2 v2.1.0
@@ -20,5 +20,5 @@ require (
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
-	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
+	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
 )
