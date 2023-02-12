@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/dchest/uniuri v0.0.0-20200228104902-7aecb25e1fe5
-	github.com/dustin/go-humanize v1.0.0
+	github.com/dustin/go-humanize v1.0.1
 	github.com/flosch/pongo2 v0.0.0-20200913210552-0d938eb266f3
 	github.com/gabriel-vasile/mimetype v1.4.1
 	github.com/microcosm-cc/bluemonday v1.0.22
