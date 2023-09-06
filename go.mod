@@ -13,7 +13,7 @@ require (
 	github.com/vharitonsky/iniflags v0.0.0-20180513140207-a33cd0b5f3de
 	github.com/zeebo/bencode v1.0.0
 	github.com/zenazn/goji v1.0.1
-	golang.org/x/crypto v0.11.0
+	golang.org/x/crypto v0.13.0
 )
 
 require (
@@ -21,5 +21,5 @@ require (
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.3 // indirect
 	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/sys v0.10.0 // indirect
+	golang.org/x/sys v0.12.0 // indirect
 )
