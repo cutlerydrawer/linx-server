@@ -5,7 +5,7 @@ WORKDIR /go/src/github.com/andreimarcu/linx-server
 
 RUN CGO_ENABLED=0 go install -buildvcs=false .
 
-FROM alpine:3.18.4
+FROM alpine:3.19.1
 
 COPY --from=build /go/bin/linx-server /usr/local/bin/linx-server
 
