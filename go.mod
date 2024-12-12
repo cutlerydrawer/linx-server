@@ -15,7 +15,7 @@ require (
 	github.com/vharitonsky/iniflags v0.0.0-20180513140207-a33cd0b5f3de
 	github.com/zeebo/bencode v1.0.0
 	github.com/zenazn/goji v1.0.1
-	golang.org/x/crypto v0.30.0
+	golang.org/x/crypto v0.31.0
 )
 
 require (
