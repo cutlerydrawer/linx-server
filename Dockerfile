@@ -1,4 +1,4 @@
-FROM golang:1.23.4-alpine AS build
+FROM golang:1.23.5-alpine AS build
 
 COPY . /go/src/github.com/andreimarcu/linx-server
 WORKDIR /go/src/github.com/andreimarcu/linx-server
