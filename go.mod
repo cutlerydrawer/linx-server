@@ -1,8 +1,7 @@
 module github.com/andreimarcu/linx-server
 
 go 1.21
-
-toolchain go1.22.4
+toolchain go1.23.6
 
 require (
 	github.com/dchest/uniuri v1.2.0
@@ -15,7 +14,7 @@ require (
 	github.com/vharitonsky/iniflags v0.0.0-20180513140207-a33cd0b5f3de
 	github.com/zeebo/bencode v1.0.0
 	github.com/zenazn/goji v1.0.1
-	golang.org/x/crypto v0.33.0
+	golang.org/x/crypto v0.34.0
 )
 
 require (
