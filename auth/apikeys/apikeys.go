@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"slices"
 	"strings"
 
 	"golang.org/x/crypto/scrypt"
@@ -66,11 +67,9 @@ func CheckAuth(authKeys []string, key string) (result bool, err error) {
 	}
 
 	encodedKey := base64.StdEncoding.EncodeToString(checkKey)
-	for _, v := range authKeys {
-		if encodedKey == v {
-			result = true
-			return
-		}
+	if slices.Contains(authKeys, encodedKey) {
+		result = true
+		return
 	}
 
 	result = false
@@ -154,11 +153,5 @@ func NewApiKeysMiddleware(o AuthOptions) func(*web.C, http.Handler) http.Handler
 }
 
 func sliceContains(slice []string, s string) bool {
-	for _, v := range slice {
-		if s == v {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(slice, s)
 }
