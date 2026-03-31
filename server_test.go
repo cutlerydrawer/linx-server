@@ -282,8 +282,8 @@ func TestPostCodeUploadNoReferrer(t *testing.T) {
 
 	mux.ServeHTTP(w, req)
 
-	if w.Code != 400 {
-		t.Fatalf("Status code is not 400, but %d", w.Code)
+	if w.Code != 303 {
+		t.Fatalf("Status code is not 303, but %d", w.Code)
 	}
 }
 
@@ -310,8 +310,32 @@ func TestPostCodeUploadBadOrigin(t *testing.T) {
 
 	mux.ServeHTTP(w, req)
 
-	if w.Code != 400 {
-		t.Fatalf("Status code is not 400, but %d", w.Code)
+	if w.Code != 403 {
+		t.Fatalf("Status code is not 403, but %d", w.Code)
+	}
+}
+
+func TestPostCodeUploadCrossSite(t *testing.T) {
+	mux := setup()
+	w := httptest.NewRecorder()
+
+	form := url.Values{}
+	form.Add("content", "File content")
+	form.Add("filename", generateBarename())
+	form.Add("extension", "txt")
+
+	req, err := http.NewRequest("POST", "/upload/", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.PostForm = form
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Sec-Fetch-Site", "cross-site")
+
+	mux.ServeHTTP(w, req)
+
+	if w.Code != 403 {
+		t.Fatalf("Status code is not 403, but %d", w.Code)
 	}
 }
 
@@ -333,6 +357,7 @@ func TestPostCodeExpiryJSONUpload(t *testing.T) {
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Referer", Config.siteURL)
 	req.Header.Set("Origin", strings.TrimSuffix(Config.siteURL, "/"))
+	req.Header.Set("Sec-Fetch-Site", "same-origin")
 
 	mux.ServeHTTP(w, req)
 
@@ -1302,4 +1327,36 @@ func TestPutAndGetCLI(t *testing.T) {
 		t.Fatalf("Didn't receive file directly but %s", contentType)
 	}
 
+}
+
+func TestHotlinkCrossSite(t *testing.T) {
+	var myjson RespOkJSON
+	mux := setup()
+
+	// upload a file
+	w := httptest.NewRecorder()
+	req, err := http.NewRequest("PUT", "/upload/testhotlink.txt", strings.NewReader("File content"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.Header.Set("Accept", "application/json")
+	mux.ServeHTTP(w, req)
+
+	err = json.Unmarshal([]byte(w.Body.String()), &myjson)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// access direct URL with cross-site fetch -> should redirect to display page
+	w = httptest.NewRecorder()
+	req, err = http.NewRequest("GET", Config.sitePath+Config.selifPath+myjson.Filename, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.Header.Set("Sec-Fetch-Site", "cross-site")
+	mux.ServeHTTP(w, req)
+
+	if w.Code != 303 {
+		t.Fatalf("Expected 303 redirect for cross-site hotlink, got %d", w.Code)
+	}
 }
