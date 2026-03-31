@@ -51,11 +51,6 @@ type Upload struct {
 }
 
 func uploadPostHandler(c web.C, w http.ResponseWriter, r *http.Request) {
-	if !strictReferrerCheck(r, getSiteURL(r), []string{"Linx-Delete-Key", "Linx-Expiry", "Linx-Randomize", "X-Requested-With"}) {
-		badRequestHandler(c, w, r, RespAUTO, "")
-		return
-	}
-
 	upReq := UploadRequest{}
 	uploadHeaderProcess(r, &upReq)
 
@@ -72,7 +67,14 @@ func uploadPostHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 		upReq.src = file
 		upReq.size = headers.Size
 		upReq.filename = headers.Filename
-	} else {
+
+		upReq.expiry = parseExpiry(r.PostFormValue("expires"))
+		upReq.accessKey = r.PostFormValue(accessKeyParamName)
+
+		if r.PostFormValue("randomize") == "true" {
+			upReq.randomBarename = true
+		}
+	} else if strings.HasPrefix(contentType, "application/x-www-form-urlencoded") {
 		if r.PostFormValue("content") == "" {
 			badRequestHandler(c, w, r, RespAUTO, "Empty file")
 			return
@@ -87,16 +89,38 @@ func uploadPostHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 		upReq.src = strings.NewReader(content)
 		upReq.size = int64(len(content))
 		upReq.filename = r.PostFormValue("filename") + "." + extension
-	}
 
-	upReq.expiry = parseExpiry(r.PostFormValue("expires"))
-	upReq.accessKey = r.PostFormValue(accessKeyParamName)
+		upReq.expiry = parseExpiry(r.PostFormValue("expires"))
+		upReq.accessKey = r.PostFormValue(accessKeyParamName)
 
-	if r.PostFormValue("randomize") == "true" {
-		upReq.randomBarename = true
+		if r.PostFormValue("randomize") == "true" {
+			upReq.randomBarename = true
+		}
+	} else {
+		defer r.Body.Close()
+		upReq.src = http.MaxBytesReader(w, r.Body, Config.maxSize)
+		upReq.filename = r.URL.Query().Get("filename")
+
+		upReq.expiry = parseExpiry(r.URL.Query().Get("expires"))
+		upReq.accessKey = r.URL.Query().Get(accessKeyParamName)
+
+		if r.URL.Query().Get("randomize") == "true" {
+			upReq.randomBarename = true
+		}
 	}
 
 	upload, err := processUpload(upReq)
+
+	if redirect := r.URL.Query().Get("redirect"); redirect != "" {
+		if err != nil {
+			oopsHandler(c, w, r, RespPLAIN, "Could not upload file: "+err.Error())
+			return
+		}
+
+		w.Header().Set("Location", getSiteURL(r)+Config.selifPath+upload.Filename)
+		w.WriteHeader(http.StatusCreated)
+		return
+	}
 
 	if strings.EqualFold("application/json", r.Header.Get("Accept")) {
 		if err == FileTooLargeError || err == backends.FileEmptyError {
@@ -132,6 +156,17 @@ func uploadPutHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 	upReq.src = http.MaxBytesReader(w, r.Body, Config.maxSize)
 
 	upload, err := processUpload(upReq)
+
+	if redirect := r.URL.Query().Get("redirect"); redirect != "" {
+		if err != nil {
+			oopsHandler(c, w, r, RespPLAIN, "Could not upload file: "+err.Error())
+			return
+		}
+
+		w.Header().Set("Location", getSiteURL(r)+Config.selifPath+upload.Filename)
+		w.WriteHeader(http.StatusCreated)
+		return
+	}
 
 	if strings.EqualFold("application/json", r.Header.Get("Accept")) {
 		if err == FileTooLargeError || err == backends.FileEmptyError {

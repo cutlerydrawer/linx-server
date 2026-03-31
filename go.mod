@@ -1,6 +1,6 @@
 module github.com/andreimarcu/linx-server
 
-go 1.24.0
+go 1.25
 
 require (
 	github.com/dchest/uniuri v1.2.0

@@ -91,6 +91,7 @@ func renderTemplate(tpl *pongo2.Template, context pongo2.Context, r *http.Reques
 		a = "header"
 	}
 	context["auth"] = a
+	context["getapikey"] = Config.getApiKey
 
 	return tpl.ExecuteWriter(context, writer)
 }

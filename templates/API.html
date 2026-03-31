@@ -21,13 +21,25 @@
 			<h3>Keys</h3>
 			<p>This instance uses API Keys, therefore you will need to provide a key for uploading and deleting
 				files.<br /> To do so, add the <code>Linx-Api-Key</code> header with your key, or supply it as
-				a standard <code>Bearer</code> token in an <code>Authorization</code> header</p>
+				a standard <code>Bearer</code> token in an <code>Authorization</code> header{% if getapikey %}, or
+				pass it as the <code>Linx-Api-Key</code> query parameter{% endif %}.</p>
 			{% endif %}
 
 			<h3>Uploading a file</h3>
 
-			<p>To upload a file, make a PUT request to <code>{{ siteurl }}upload/</code> and you will get the url of
+			<p>To upload a file, make a PUT or POST request to <code>{{ siteurl }}upload/</code> and you will get the url of
 				your upload back.</p>
+
+			<p>PUT uploads send the file as the request body and optionally specify a filename in the URL
+				(e.g. <code>{{ siteurl }}upload/myphoto.jpg</code>).</p>
+
+			<p>POST uploads support three formats:</p>
+			<ul>
+				<li><strong>Multipart form</strong> (<code>Content-Type: multipart/form-data</code>) with a <code>file</code> field</li>
+				<li><strong>URL-encoded form</strong> (<code>Content-Type: application/x-www-form-urlencoded</code>) with <code>content</code> and <code>extension</code> fields</li>
+				<li><strong>Raw body</strong> &mdash; send the file directly as the request body (like PUT), with metadata via query parameters:
+					<code>filename</code>, <code>expires</code>, <code>access_key</code>, <code>randomize</code></li>
+			</ul>
 
 			<p><strong>Optional headers with the request</strong></p>
 
@@ -61,6 +73,9 @@
 					“mimetype”: the guessed mimetype of the file<br />
 					“sha256sum”: the sha256sum of the file,</p>
 			</blockquote>
+
+			<p>Alternatively, add the <code>redirect</code> query parameter to receive a <code>201 Created</code>
+				response with a <code>Location</code> header pointing to the direct file URL.</p>
 
 			<p><strong>Examples</strong></p>
 

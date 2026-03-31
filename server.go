@@ -99,6 +99,12 @@ func setup() *web.Mux {
 
 	mux.Use(middleware.Recoverer)
 	mux.Use(middleware.AutomaticOptions)
+
+	cop := http.NewCrossOriginProtection()
+	mux.Use(func(c *web.C, h http.Handler) http.Handler {
+		return cop.Handler(h)
+	})
+
 	mux.Use(ContentSecurityPolicy(CSPOptions{
 		policy:         Config.contentSecurityPolicy,
 		referrerPolicy: Config.referrerPolicy,

@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.3.0 - 2026-03-31
+
+### Other changes
+
+* Allow POST uploads with a raw file body (in addition to multipart and URL-encoded forms).
+* Add `redirect` query parameter to return a `201 Created` with a `Location` header on upload.
+* Replace custom CSRF checks with Go 1.25's `http.CrossOriginProtection` (`Sec-Fetch-Site` based).
+* Update hotlink protection to use `Sec-Fetch-Site` instead of `Referer` header.
+
 ## 3.2.0 - 2026-03-31
 
 ### Other changes
