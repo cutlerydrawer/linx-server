@@ -26,6 +26,7 @@ type AuthOptions struct {
 	AuthFile      string
 	UnauthMethods []string
 	BasicAuth     bool
+	GetApiKey     bool
 	SiteName      string
 	SitePath      string
 }
@@ -127,6 +128,9 @@ func (a ApiKeysMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if ok {
 			key = password
 		}
+	}
+	if key == "" && a.o.GetApiKey {
+		key = r.URL.Query().Get("Linx-Api-Key")
 	}
 
 	result, err := CheckAuth(a.authKeys, key)

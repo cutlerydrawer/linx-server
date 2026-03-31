@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.2.0 - 2026-03-31
+
+### Other changes
+
+* Add `-getapikey` option to allow passing the API key via the `Linx-Api-Key` query parameter.
+* Dependency updates.
+
 ## 3.1.0 - 2025-06-02
 
 ### Other changes

@@ -61,6 +61,7 @@ var Config struct {
 	fastcgi                   bool
 	remoteUploads             bool
 	basicAuth                 bool
+	getApiKey                 bool
 	authFile                  string
 	remoteAuthFile            string
 	addHeaders                headerList
@@ -110,6 +111,7 @@ func setup() *web.Mux {
 			AuthFile:      Config.authFile,
 			UnauthMethods: []string{"GET", "HEAD", "OPTIONS", "TRACE"},
 			BasicAuth:     Config.basicAuth,
+			GetApiKey:     Config.getApiKey,
 			SiteName:      Config.siteName,
 			SitePath:      Config.sitePath,
 		}))
@@ -232,6 +234,8 @@ func main() {
 		"path to metadata directory")
 	flag.BoolVar(&Config.basicAuth, "basicauth", false,
 		"allow logging by basic auth password")
+	flag.BoolVar(&Config.getApiKey, "getapikey", false,
+		"allow passing API key via Linx-Api-Key GET parameter")
 	flag.BoolVar(&Config.noLogs, "nologs", false,
 		"remove stdout output for each request")
 	flag.BoolVar(&Config.allowHotlink, "allowhotlink", false,
