@@ -130,6 +130,9 @@ func (a ApiKeysMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	if key == "" && a.o.GetApiKey {
 		key = r.URL.Query().Get("Linx-Api-Key")
+		if key == "" {
+			key = r.URL.Query().Get("linx-api-key")
+		}
 	}
 
 	result, err := CheckAuth(a.authKeys, key)

@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.4.0 - 2026-03-31
+
+### Other changes
+
+* Accept API key query parameter in both `Linx-Api-Key` and `linx-api-key` forms.
+
 ## 3.3.0 - 2026-03-31
 
 ### Other changes
