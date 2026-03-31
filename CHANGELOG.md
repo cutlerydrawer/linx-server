@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.4.1 - 2026-03-31
+
+### Bug fixes
+
+* Fix `redirect` and `randomize` query parameters not working when passed as flag-style (no value).
+
 ## 3.4.0 - 2026-03-31
 
 ### Other changes

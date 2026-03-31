@@ -104,14 +104,14 @@ func uploadPostHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 		upReq.expiry = parseExpiry(r.URL.Query().Get("expires"))
 		upReq.accessKey = r.URL.Query().Get(accessKeyParamName)
 
-		if r.URL.Query().Get("randomize") == "true" {
+		if r.URL.Query().Has("randomize") {
 			upReq.randomBarename = true
 		}
 	}
 
 	upload, err := processUpload(upReq)
 
-	if redirect := r.URL.Query().Get("redirect"); redirect != "" {
+	if r.URL.Query().Has("redirect") {
 		if err != nil {
 			oopsHandler(c, w, r, RespPLAIN, "Could not upload file: "+err.Error())
 			return
@@ -157,7 +157,7 @@ func uploadPutHandler(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	upload, err := processUpload(upReq)
 
-	if redirect := r.URL.Query().Get("redirect"); redirect != "" {
+	if r.URL.Query().Has("redirect") {
 		if err != nil {
 			oopsHandler(c, w, r, RespPLAIN, "Could not upload file: "+err.Error())
 			return
