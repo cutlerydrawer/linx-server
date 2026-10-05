@@ -1,5 +1,10 @@
 # Changelog
 
+### Unreleased
+
+Dependency updates
+Require go 1.26
+
 ## 3.4.1 - 2026-03-31
 
 ### Bug fixes
